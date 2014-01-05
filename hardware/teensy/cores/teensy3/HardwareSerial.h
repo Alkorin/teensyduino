@@ -94,6 +94,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifdef USE_HARDWARE_SERIAL1
 void serial_begin(uint32_t divisor);
 void serial_format(uint32_t format);
 void serial_end(void);
@@ -109,7 +110,9 @@ void serial_print(const char *p);
 void serial_phex(uint32_t n);
 void serial_phex16(uint32_t n);
 void serial_phex32(uint32_t n);
+#endif
 
+#ifdef USE_HARDWARE_SERIAL2
 void serial2_begin(uint32_t divisor);
 void serial2_format(uint32_t format);
 void serial2_end(void);
@@ -120,7 +123,9 @@ int serial2_available(void);
 int serial2_getchar(void);
 int serial2_peek(void);
 void serial2_clear(void);
+#endif
 
+#ifdef USE_HARDWARE_SERIAL3
 void serial3_begin(uint32_t divisor);
 void serial3_format(uint32_t format);
 void serial3_end(void);
@@ -131,6 +136,7 @@ int serial3_available(void);
 int serial3_getchar(void);
 int serial3_peek(void);
 void serial3_clear(void);
+#endif
 
 #ifdef __cplusplus
 }
@@ -141,6 +147,7 @@ void serial3_clear(void);
 //
 #ifdef __cplusplus
 #include "Stream.h"
+#ifdef USE_HARDWARE_SERIAL1
 class HardwareSerial : public Stream
 {
 public:
@@ -168,7 +175,9 @@ public:
 	size_t write9bit(uint32_t c)	{ serial_putchar(c); return 1; }
 };
 extern HardwareSerial Serial1;
+#endif
 
+#ifdef USE_HARDWARE_SERIAL2
 class HardwareSerial2 : public HardwareSerial
 {
 public:
@@ -195,7 +204,9 @@ public:
 	size_t write9bit(uint32_t c)	{ serial2_putchar(c); return 1; }
 };
 extern HardwareSerial2 Serial2;
+#endif
 
+#ifdef USE_HARDWARE_SERIAL3
 class HardwareSerial3 : public HardwareSerial
 {
 public:
@@ -222,6 +233,7 @@ public:
 	size_t write9bit(uint32_t c)	{ serial3_putchar(c); return 1; }
 };
 extern HardwareSerial3 Serial3;
+#endif
 
 #endif
 #endif

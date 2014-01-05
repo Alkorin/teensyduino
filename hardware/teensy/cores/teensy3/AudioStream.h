@@ -33,6 +33,8 @@
 
 #include "Arduino.h"
 
+#ifdef USE_AUDIOSTREAM
+
 #define AUDIO_BLOCK_SAMPLES  128
 #define AUDIO_SAMPLE_RATE    44100
 #define AUDIO_SAMPLE_RATE_EXACT 44117.64706 // 48 MHz / 1088, or 96 MHz * 2 / 17 / 256
@@ -142,5 +144,7 @@ private:
 	static uint8_t memory_pool_size;
 	static uint32_t memory_pool_available_mask;
 };
+
+#endif
 
 #endif

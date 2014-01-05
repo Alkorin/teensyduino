@@ -161,14 +161,6 @@ void usb_serial_flush_input(void)
 // actually receive it.
 static uint8_t transmit_previous_timeout=0;
 
-
-// transmit a character.  0 returned on success, -1 on error
-int usb_serial_putchar(uint8_t c)
-{
-	return usb_serial_write(&c, 1);
-}
-
-
 int usb_serial_write(const void *buffer, uint32_t size)
 {
 	uint32_t len;
@@ -214,6 +206,12 @@ int usb_serial_write(const void *buffer, uint32_t size)
 	}
 	tx_noautoflush = 0;
 	return 0;
+}
+
+// transmit a character.  0 returned on success, -1 on error
+int usb_serial_putchar(uint8_t c)
+{
+	return usb_serial_write(&c, 1);
 }
 
 void usb_serial_flush_output(void)

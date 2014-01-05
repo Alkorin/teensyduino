@@ -32,6 +32,8 @@
 #include "core_pins.h"
 #include "HardwareSerial.h"
 
+#ifdef USE_HARDWARE_SERIAL3
+
 ////////////////////////////////////////////////////////////////
 // Tunable parameters (relatively safe to edit these numbers)
 ////////////////////////////////////////////////////////////////
@@ -260,4 +262,4 @@ void uart2_status_isr(void)
 	//digitalWriteFast(4, LOW);
 }
 
-
+#endif

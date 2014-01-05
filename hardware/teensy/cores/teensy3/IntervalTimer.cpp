@@ -20,6 +20,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 #include "IntervalTimer.h"
 
+#ifdef USE_INTERVALTIMER
 
 // ------------------------------------------------------------
 // static class variables need to be reiterated here before use
@@ -182,4 +183,4 @@ void IntervalTimer::stop_PIT() {
   
 }
 
-
+#endif

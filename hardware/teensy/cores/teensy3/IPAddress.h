@@ -27,6 +27,8 @@
 #ifndef IPAddress_h
 #define IPAddress_h
 
+#ifdef USE_IPADDRESS
+
 #include <Printable.h>
 
 // A class to make it easier to handle and pass around IP addresses
@@ -77,6 +79,7 @@ public:
 
 const IPAddress INADDR_NONE(0,0,0,0);
 
+#endif
 
 #endif
 #endif

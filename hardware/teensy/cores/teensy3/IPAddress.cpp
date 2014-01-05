@@ -2,6 +2,8 @@
 #include "Arduino.h"
 #include "IPAddress.h"
 
+#ifdef USE_IPADDRESS
+
 IPAddress::IPAddress()
 {
     memset(_address, 0, sizeof(_address));
@@ -53,5 +55,7 @@ size_t IPAddress::printTo(Print& p) const
     n += p.print(_address[3], DEC);
     return n;
 }
+
+#endif
 
 #endif

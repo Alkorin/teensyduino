@@ -28,6 +28,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 extern "C" {
 #endif
 
+#ifdef USE_INTERVALTIMER
+
 class IntervalTimer {
   private:
     typedef void (*ISR)();
@@ -80,6 +82,7 @@ class IntervalTimer {
     static ISR PIT_ISR[NUM_PIT];
 };
 
+#endif
 
 #ifdef __cplusplus
 }

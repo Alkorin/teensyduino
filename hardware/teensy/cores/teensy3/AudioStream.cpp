@@ -31,6 +31,7 @@
 
 #include "AudioStream.h"
 
+#ifdef USE_AUDIOSTREAM
 
 audio_block_t * AudioStream::memory_pool;
 uint8_t AudioStream::memory_pool_size = 0;
@@ -217,3 +218,4 @@ void software_isr(void) // AudioStream::update_all()
 		AudioStream::cpu_cycles_total_max = totalcycles;
 }
 
+#endif

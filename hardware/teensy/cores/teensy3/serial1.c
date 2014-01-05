@@ -32,6 +32,8 @@
 #include "core_pins.h"
 #include "HardwareSerial.h"
 
+#ifdef USE_HARDWARE_SERIAL1
+
 ////////////////////////////////////////////////////////////////
 // Tunable parameters (relatively safe to edit these numbers)
 ////////////////////////////////////////////////////////////////
@@ -375,3 +377,4 @@ void serial_phex32(uint32_t n)
 	serial_phex(n);
 }
 
+#endif
