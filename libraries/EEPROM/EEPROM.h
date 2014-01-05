@@ -22,14 +22,14 @@
 
 #include <inttypes.h>
 
-#if defined(__MK20DX128__)
+#if defined(__MK20DX128__) || defined(__MK20DX256__)
 #include "avr_functions.h"
 #endif
 
 class EEPROMClass
 {
   public:
-#if defined(__MK20DX128__)
+#if defined(__MK20DX128__) || defined(__MK20DX256__)
     EEPROMClass() { eeprom_initialize(); }
 #endif
     uint8_t read(int);

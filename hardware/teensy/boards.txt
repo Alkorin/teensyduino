@@ -2,6 +2,16 @@ menu.usb=USB Type
 menu.speed=CPU Speed
 menu.keys=Keyboard Layout
 
+
+
+
+
+
+
+menu.usb=USB Type
+menu.speed=CPU Speed
+menu.keys=Keyboard Layout
+
 teensy31.name=Teensy 3.1
 teensy31.upload.protocol=halfkay
 teensy31.upload.maximum_size=262144

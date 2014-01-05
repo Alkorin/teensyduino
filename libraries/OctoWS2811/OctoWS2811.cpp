@@ -156,6 +156,11 @@ void OctoWS2811::begin(void)
 	DMA_TCD3_CSR = DMA_TCD_CSR_DREQ | DMA_TCD_CSR_INTMAJOR;
 	DMA_TCD3_BITER_ELINKNO = bufsize;
 
+#ifdef __MK20DX256__
+	MCM_CR = MCM_CR_SRAMLAP(1) | MCM_CR_SRAMUAP(0);
+	AXBS_PRS0 = 0x1032;
+#endif
+
 	// route the edge detect interrupts to trigger the 3 channels
 	DMAMUX0_CHCFG1 = 0;
 	DMAMUX0_CHCFG1 = DMAMUX_SOURCE_PORTB | DMAMUX_ENABLE;

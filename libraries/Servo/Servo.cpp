@@ -340,7 +340,7 @@ bool Servo::attached()
 
 
 
-#elif defined(__arm__) && defined(__MK20DX128__)
+#elif defined(__arm__) && (defined(__MK20DX128__) || defined(__MK20DX256__))
 // ******************************************************************************
 // Teensy 3.0 implementation, using Programmable Delay Block
 // ******************************************************************************

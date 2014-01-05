@@ -44,7 +44,7 @@ http://arduiniana.org.
 #include <SoftwareSerial.h>
 
 
-#if defined(__MK20DX128__)
+#if defined(__MK20DX128__) || defined(__MK20DX256__)
 
 SoftwareSerial::SoftwareSerial(uint8_t rxPin, uint8_t txPin, bool inverse_logic /* = false */)
 {

@@ -92,7 +92,7 @@ class TwoWire : public Stream
 
 extern TwoWire Wire;
 
-#if defined(__MK20DX128__)
+#if defined(__MK20DX128__) || defined(__MK20DX256__)
 class TWBRemulation
 {
 public:

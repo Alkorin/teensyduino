@@ -42,6 +42,8 @@ import java.awt.Rectangle;
 
 Movie myMovie = new Movie(this, "/tmp/Toy_Story.avi");
 
+float gamma = 1.7;
+
 int numPorts=0;  // the number of serial ports in use
 int maxPorts=24; // maximum number of serial ports
 
@@ -49,6 +51,7 @@ Serial[] ledSerial = new Serial[maxPorts];     // each port's actual Serial port
 Rectangle[] ledArea = new Rectangle[maxPorts]; // the area of the movie each port gets, in % (0-100)
 boolean[] ledLayout = new boolean[maxPorts];   // layout of rows, true = even is left->right
 PImage[] ledImage = new PImage[maxPorts];      // image sent to each port
+int[] gammatable = new int[256];
 int errorCount=0;
 float framerate=0;
 
@@ -60,6 +63,9 @@ void setup() {
   serialConfigure("/dev/ttyACM0");  // change these to your port names
   serialConfigure("/dev/ttyACM1");
   if (errorCount > 0) exit();
+  for (int i=0; i < 256; i++) {
+    gammatable[i] = (int)(pow((float)i / 255.0, gamma) * 255.0 + 0.5);
+  }
   size(480, 400);  // create the window
   myMovie.loop();  // start the movie :-)
 }
@@ -141,8 +147,13 @@ void image2data(PImage image, byte[] data, boolean layout) {
 // translate the 24 bit color from RGB to the actual
 // order used by the LED wiring.  GRB is the most common.
 int colorWiring(int c) {
-  // return c;  // RGB
-  return ((c & 0xFF0000) >> 8) | ((c & 0x00FF00) << 8) | (c & 0x0000FF); // GRB - most common wiring
+  int red = (c & 0xFF0000) >> 16;
+  int green = (c & 0x00FF00) >> 8;
+  int blue = (c & 0x0000FF);
+  red = gammatable[red];
+  green = gammatable[green];
+  blue = gammatable[blue];
+  return (green << 16) | (red << 8) | (blue); // GRB - most common wiring
 }
 
 // ask a Teensy board for its LED configuration, and set up the info for it.

@@ -19,7 +19,7 @@
   Modified 2012 by Todd Krein (todd@krein.org) to implement repeated starts
 */
 
-#if defined(__MK20DX128__)
+#if defined(__MK20DX128__) || defined(__MK20DX256__)
 
 #include "mk20dx128.h"
 #include <string.h> // for memcpy
@@ -425,7 +425,7 @@ void TwoWire::onRequest( void (*function)(void) )
 TwoWire Wire;
 
 
-#endif // __MK20DX128__
+#endif // __MK20DX128__ || __MK20DX256__
 
 
 

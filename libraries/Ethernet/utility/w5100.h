@@ -317,7 +317,7 @@ private:
   inline static void initSS()    { DDRB  |=  _BV(0); };
   inline static void setSS()     { PORTB &= ~_BV(0); };
   inline static void resetSS()   { PORTB |=  _BV(0); }; 
-#elif defined(__MK20DX128__)
+#elif defined(__MK20DX128__) || defined(__MK20DX256__)
   inline static void initSS()    { pinMode(10, OUTPUT); };
   inline static void setSS()     { digitalWriteFast(10, LOW); };
   inline static void resetSS()   { digitalWriteFast(10, HIGH); };

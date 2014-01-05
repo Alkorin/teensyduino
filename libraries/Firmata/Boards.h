@@ -251,7 +251,7 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 
 
 // Teensy 3.0
-#elif defined(__MK20DX128__)
+#elif defined(__MK20DX128__) || defined(__MK20DX256__)
 #define TOTAL_ANALOG_PINS       14
 #define TOTAL_PINS              38 // 24 digital + 10 analog-digital + 4 analog
 #define VERSION_BLINK_PIN       13
