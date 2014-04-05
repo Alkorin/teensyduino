@@ -22,6 +22,16 @@ menu.usb=USB Type
 menu.speed=CPU Speed
 menu.keys=Keyboard Layout
 
+
+
+
+
+
+
+menu.usb=USB Type
+menu.speed=CPU Speed
+menu.keys=Keyboard Layout
+
 teensy31.name=Teensy 3.1
 teensy31.upload.protocol=halfkay
 teensy31.upload.maximum_size=262144
@@ -37,7 +47,7 @@ teensy31.build.cpu=cortex-m4
 teensy31.build.option1=-mthumb
 teensy31.build.option2=-nostdlib
 teensy31.build.option3=-D__MK20DX256__
-teensy31.build.option4=-DTEENSYDUINO=117
+teensy31.build.option4=-DTEENSYDUINO=118
 teensy31.build.cppoption1=-fno-rtti
 teensy31.build.linkoption1=-mthumb
 teensy31.build.additionalobject1=-larm_cortexM4l_math
@@ -149,7 +159,7 @@ teensy3.build.cpu=cortex-m4
 teensy3.build.option1=-mthumb
 teensy3.build.option2=-nostdlib
 teensy3.build.option3=-D__MK20DX128__
-teensy3.build.option4=-DTEENSYDUINO=117
+teensy3.build.option4=-DTEENSYDUINO=118
 teensy3.build.cppoption1=-fno-rtti
 teensy3.build.linkoption1=-mthumb
 teensy3.build.additionalobject1=-larm_cortexM4l_math
@@ -257,7 +267,7 @@ teensy2.serial.restart_cmd=true
 teensy2.serial.safe_baud_rates_only=true
 teensy2.upload.avrdude_wrapper=teensy_reboot
 teensy2.build.mcu=atmega32u4
-teensy2.build.option1=-DTEENSYDUINO=117
+teensy2.build.option1=-DTEENSYDUINO=118
 teensy2.build.core=teensy
 teensy2.build.elide_constructors=true
 teensy2.build.cpp0x=true
@@ -354,7 +364,7 @@ teensy1.serial.restart_cmd=true
 teensy1.serial.safe_baud_rates_only=true
 teensy1.upload.avrdude_wrapper=teensy_reboot
 teensy1.build.mcu=at90usb162
-teensy1.build.option1=-DTEENSYDUINO=117
+teensy1.build.option1=-DTEENSYDUINO=118
 teensy1.build.core=teensy
 teensy1.build.elide_constructors=true
 teensy1.build.cpp0x=true
@@ -432,7 +442,7 @@ teensypp2.serial.restart_cmd=true
 teensypp2.serial.safe_baud_rates_only=true
 teensypp2.upload.avrdude_wrapper=teensy_reboot
 teensypp2.build.mcu=at90usb1286
-teensypp2.build.option1=-DTEENSYDUINO=117
+teensypp2.build.option1=-DTEENSYDUINO=118
 teensypp2.build.core=teensy
 teensypp2.build.elide_constructors=true
 teensypp2.build.cpp0x=true
@@ -529,7 +539,7 @@ teensypp1.serial.restart_cmd=true
 teensypp1.serial.safe_baud_rates_only=true
 teensypp1.upload.avrdude_wrapper=teensy_reboot
 teensypp1.build.mcu=at90usb646
-teensypp1.build.option1=-DTEENSYDUINO=117
+teensypp1.build.option1=-DTEENSYDUINO=118
 teensypp1.build.core=teensy
 teensypp1.build.elide_constructors=true
 teensypp1.build.cpp0x=true

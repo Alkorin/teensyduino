@@ -49,6 +49,7 @@ public class Base {
   public static final int REVISION = 105;
   /** This might be replaced by main() if there's a lib/version.txt file. */
   static String VERSION_NAME = "0105";
+  static String teensyduino_version = null;
   /** Set true if this a proper release rather than a numbered revision. */
   static public boolean RELEASE = false;
 
@@ -127,6 +128,15 @@ public class Base {
       }
     } catch (Exception e) {
       e.printStackTrace();
+    }
+
+    try {
+      File versionFile = getContentFile("lib/teensyduino.txt");
+      if (versionFile.exists()) {
+        teensyduino_version = PApplet.loadStrings(versionFile)[0];
+      }
+    } catch (Exception e) {
+      teensyduino_version = null;
     }
 
 //    if (System.getProperty("mrj.version") != null) {
@@ -1379,6 +1389,14 @@ public class Base {
         String packages[] =
           Compiler.headerListFromIncludePath(subfolder.getAbsolutePath());
         for (String pkg : packages) {
+          File old = importToLibraryTable.get(pkg);
+          if (old != null) {
+            // A library was already found with this header.  If the header name
+            // matches the library's directory name, always use it and ignore
+            // any other library.
+            String name = pkg.substring(0, pkg.length() - 2);
+            if (old.getPath().endsWith(name)) continue;
+          }
           importToLibraryTable.put(pkg, subfolder);
         }
       } catch (IOException e) {
@@ -1455,9 +1473,16 @@ public class Base {
           g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                               RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 
-          g.setFont(new Font("SansSerif", Font.PLAIN, 11));
+          Font f = new Font("SansSerif", Font.PLAIN, 11);
+          g.setFont(f);
           g.setColor(Color.white);
           g.drawString(Base.VERSION_NAME, 50, 30);
+          if (Base.teensyduino_version != null) {
+            FontMetrics m = g.getFontMetrics(f);
+            g.drawString("Teensyduino", 285 - m.stringWidth("Teensyduino") / 2, 44);
+            g.drawString(Base.teensyduino_version,
+              285 - m.stringWidth(Base.teensyduino_version) / 2, 60);
+          }
         }
       };
     window.addMouseListener(new MouseAdapter() {

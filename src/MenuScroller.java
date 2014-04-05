@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JMenu;
@@ -42,6 +44,7 @@ public class MenuScroller {
   private MenuScrollItem upItem;
   private MenuScrollItem downItem;
   private final MenuScrollListener menuListener = new MenuScrollListener();
+  private final MouseScrollListener mouseWheelListener = new MouseScrollListener();
   private int scrollCount;
   private int interval;
   private int topFixedCount;
@@ -218,7 +221,7 @@ public class MenuScroller {
    * @throws IllegalArgumentException if scrollCount is 0 or negative
    */
   public MenuScroller(JMenu menu, int scrollCount) {
-    this(menu, scrollCount, 150);
+    this(menu, scrollCount, -1);
   }
 
   /**
@@ -231,7 +234,7 @@ public class MenuScroller {
    * @throws IllegalArgumentException if scrollCount is 0 or negative
    */
   public MenuScroller(JPopupMenu menu, int scrollCount) {
-    this(menu, scrollCount, 150);
+    this(menu, scrollCount, -1);
   }
 
   /**
@@ -302,7 +305,7 @@ public class MenuScroller {
     	scrollCount = getMaximumItems(menu)-topFixedCount-bottomFixedCount; // Autosize
     
     if(interval == -1)
-    	interval = 150; // Default value
+    	interval = 120; // Default value
     		
     if (scrollCount <= 0 || interval <= 0) {
       throw new IllegalArgumentException("scrollCount and interval must be greater than 0");
@@ -310,7 +313,6 @@ public class MenuScroller {
     if (topFixedCount < 0 || bottomFixedCount < 0) {
       throw new IllegalArgumentException("topFixedCount and bottomFixedCount cannot be negative");
     }
-
     upItem = new MenuScrollItem(MenuIcon.UP, -1);
     downItem = new MenuScrollItem(MenuIcon.DOWN, +1);
     setScrollCount(scrollCount);
@@ -320,6 +322,7 @@ public class MenuScroller {
 
     this.menu = menu;
     menu.addPopupMenuListener(menuListener);
+    menu.addMouseWheelListener(mouseWheelListener);
   }
 
   /**
@@ -446,6 +449,7 @@ public class MenuScroller {
   public void dispose() {
     if (menu != null) {
       menu.removePopupMenuListener(menuListener);
+      menu.removeMouseWheelListener(mouseWheelListener);
       menu = null;
     }
   }
@@ -494,6 +498,16 @@ public class MenuScroller {
       JComponent parent = (JComponent) upItem.getParent();
       parent.revalidate();
       parent.repaint();
+    }
+  }
+
+  private class MouseScrollListener implements MouseWheelListener {
+    public void mouseWheelMoved(MouseWheelEvent mwe) {
+      if (menuItems.length > scrollCount) {
+        firstIndex += mwe.getWheelRotation();
+        refreshMenu();
+      }
+      mwe.consume();
     }
   }
 

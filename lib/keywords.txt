@@ -224,6 +224,9 @@ touchRead	KEYWORD2
 Teensy3Clock	KEYWORD2
 IntervalTimer	KEYWORD2
 printf	KEYWORD2
+digitalWriteFast	KEYWORD2
+digitalReadFast	KEYWORD2
+transmitterEnable	KEYWORD2
 
 # Arduino constants
 A0	LITERAL1
@@ -538,6 +541,8 @@ X	KEYWORD2
 Y	KEYWORD2
 position	KEYWORD2
 Z	KEYWORD2
+Xrotate	KEYWORD2
+Yrotate	KEYWORD2
 Zrotate	KEYWORD2
 sliderLeft	KEYWORD2
 sliderRight	KEYWORD2
