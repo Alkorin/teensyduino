@@ -25,6 +25,7 @@
 #include <Arduino.h>
 
 #define WS2811_RGB	0	// The WS2811 datasheet documents this way
+#define WS2811_RAW	0	// Handle colors manually
 #define WS2811_RBG	1
 #define WS2811_GRB	2	// Most LED strips are wired this way
 #define WS2811_GBR	3
