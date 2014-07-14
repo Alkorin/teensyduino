@@ -83,7 +83,27 @@ let me know?  http://forum.pjrc.com/forums/4-Suggestions-amp-Bug-Reports
 
 
 
-#if defined(USB_SERIAL)
+#if defined(USB_NONE)
+  #define VENDOR_ID		0x16C0
+  #define PRODUCT_ID		0x0483
+  #define MANUFACTURER_NAME	{'T','e','e','n','s','y','d','u','i','n','o'}
+  #define MANUFACTURER_NAME_LEN	11
+  #define PRODUCT_NAME		{'U','S','B',' ','F','l','a','s','h'}
+  #define PRODUCT_NAME_LEN	9
+  #define EP0_SIZE		8
+  #define NUM_ENDPOINTS		0
+  #define NUM_USB_BUFFERS	0
+  #define NUM_INTERFACE		2
+  #define CDC_STATUS_INTERFACE	0
+  #define CDC_DATA_INTERFACE	1
+  #define CDC_ACM_ENDPOINT	2
+  #define CDC_RX_ENDPOINT       3
+  #define CDC_TX_ENDPOINT       4
+  #define CDC_ACM_SIZE          16
+  #define CDC_RX_SIZE           64
+  #define CDC_TX_SIZE           64
+  #define CONFIG_DESC_SIZE	(9+9+5+5+4+5+7+9+7+7)
+#elif defined(USB_SERIAL)
   #define VENDOR_ID		0x16C0
   #define PRODUCT_ID		0x0483
   #define DEVICE_CLASS		2	// 2 = Communication Class

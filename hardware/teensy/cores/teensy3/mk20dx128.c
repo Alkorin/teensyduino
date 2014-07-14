@@ -407,9 +407,13 @@ void ResetHandler(void)
 	while (dest < &_ebss) *dest++ = 0;
 
 	// default all interrupts to medium priority level
+#if defined(STATIC_VECTOR_TABLE)
+	SCB_VTOR = (uint32_t)_VectorsFlash;	// use vector table in FLASH
+#else
 	for (i=0; i < NVIC_NUM_INTERRUPTS + 16; i++) _VectorsRam[i] = _VectorsFlash[i];
-	for (i=0; i < NVIC_NUM_INTERRUPTS; i++) NVIC_SET_PRIORITY(i, 128);
 	SCB_VTOR = (uint32_t)_VectorsRam;	// use vector table in RAM
+#endif
+	for (i=0; i < NVIC_NUM_INTERRUPTS; i++) NVIC_SET_PRIORITY(i, 128);
 
 	// hardware always starts in FEI mode
 	//  C1[CLKS] bits are written to 00
