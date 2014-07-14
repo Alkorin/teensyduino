@@ -54,6 +54,7 @@ void TwoWire::begin(void)
 
 	slave_mode = 0;
 	SIM_SCGC4 |= SIM_SCGC4_I2C0; // TODO: use bitband
+	I2C0_C1 = 0;
 	// On Teensy 3.0 external pullup resistors *MUST* be used
 	// the PORT_PCR_PE bit is ignored when in I2C mode
 	// I2C will not work at all without pullup resistors
@@ -63,18 +64,54 @@ void TwoWire::begin(void)
 	// those causes the port to be driven strongly high.
 	CORE_PIN18_CONFIG = PORT_PCR_MUX(2)|PORT_PCR_ODE|PORT_PCR_SRE|PORT_PCR_DSE;
 	CORE_PIN19_CONFIG = PORT_PCR_MUX(2)|PORT_PCR_ODE|PORT_PCR_SRE|PORT_PCR_DSE;
-#if F_BUS == 48000000
+#if F_BUS == 60000000
+	I2C0_F = 0x2C;	// 104 kHz
+	// I2C0_F = 0x1C; // 416 kHz
+	// I2C0_F = 0x12; // 938 kHz
+	I2C0_FLT = 4;
+#elif F_BUS == 56000000
+	I2C0_F = 0x2B;	// 109 kHz
+	// I2C0_F = 0x1C; // 389 kHz
+	// I2C0_F = 0x0E; // 1 MHz
+	I2C0_FLT = 4;
+#elif F_BUS == 48000000
 	I2C0_F = 0x27;	// 100 kHz
 	// I2C0_F = 0x1A; // 400 kHz
 	// I2C0_F = 0x0D; // 1 MHz
 	I2C0_FLT = 4;
+#elif F_BUS == 40000000
+	I2C0_F = 0x29;	// 104 kHz
+	// I2C0_F = 0x19; // 416 kHz
+	// I2C0_F = 0x0B; // 1 MHz
+	I2C0_FLT = 3;
+#elif F_BUS == 36000000
+	I2C0_F = 0x28;	// 113 kHz
+	// I2C0_F = 0x19; // 375 kHz
+	// I2C0_F = 0x0A; // 1 MHz
+	I2C0_FLT = 3;
 #elif F_BUS == 24000000
 	I2C0_F = 0x1F; // 100 kHz
-	// I2C0_F = 0x45; // 400 kHz
+	// I2C0_F = 0x12; // 375 kHz
 	// I2C0_F = 0x02; // 1 MHz
 	I2C0_FLT = 2;
+#elif F_BUS == 16000000
+	I2C0_F = 0x20; // 100 kHz
+	// I2C0_F = 0x07; // 400 kHz
+	// I2C0_F = 0x00; // 800 MHz
+	I2C0_FLT = 1;
+#elif F_BUS == 8000000
+	I2C0_F = 0x14; // 100 kHz
+	// I2C0_F = 0x00; // 400 kHz
+	I2C0_FLT = 1;
+#elif F_BUS == 4000000
+	I2C0_F = 0x07; // 100 kHz
+	// I2C0_F = 0x00; // 200 kHz
+	I2C0_FLT = 1;
+#elif F_BUS == 2000000
+	I2C0_F = 0x00; // 100 kHz
+	I2C0_FLT = 1;
 #else
-#error "F_BUS must be 48 MHz or 24 MHz"
+#error "F_BUS must be 60, 56, 48, 40, 36, 24, 16, 8, 4 or 2 MHz"
 #endif
 	I2C0_C2 = I2C_C2_HDRS;
 	I2C0_C1 = I2C_C1_IICEN;

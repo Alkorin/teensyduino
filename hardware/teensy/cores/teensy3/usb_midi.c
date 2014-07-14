@@ -10,10 +10,10 @@
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
  *
- * 1. The above copyright notice and this permission notice shall be 
+ * 1. The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  *
- * 2. If the Software is incorporated into a build system that allows 
+ * 2. If the Software is incorporated into a build system that allows
  * selection among a list of target devices, then similar target
  * devices manufactured by PJRC.COM must be included in the list of
  * target devices and selectable in the same manner.
@@ -49,6 +49,7 @@ void (*usb_midi_handleControlChange)(uint8_t ch, uint8_t control, uint8_t value)
 void (*usb_midi_handleProgramChange)(uint8_t ch, uint8_t program) = NULL;
 void (*usb_midi_handleAfterTouch)(uint8_t ch, uint8_t pressure) = NULL;
 void (*usb_midi_handlePitchChange)(uint8_t ch, int pitch) = NULL;
+void (*usb_midi_handleSysEx)(const uint8_t *data, uint16_t length, uint8_t complete) = NULL;
 void (*usb_midi_handleRealTimeSystem)(uint8_t rtb) = NULL;
 
 // Maximum number of transmit packets to queue so we don't starve other endpoints for memory
@@ -62,8 +63,16 @@ static uint8_t tx_noautoflush=0;
 // When the PC isn't listening, how long do we wait before discarding data?
 #define TX_TIMEOUT_MSEC 40
 
-#if F_CPU == 96000000
+#if F_CPU == 168000000
+  #define TX_TIMEOUT (TX_TIMEOUT_MSEC * 1100)
+#elif F_CPU == 144000000
+  #define TX_TIMEOUT (TX_TIMEOUT_MSEC * 932)
+#elif F_CPU == 120000000
+  #define TX_TIMEOUT (TX_TIMEOUT_MSEC * 764)
+#elif F_CPU == 96000000
   #define TX_TIMEOUT (TX_TIMEOUT_MSEC * 596)
+#elif F_CPU == 72000000
+  #define TX_TIMEOUT (TX_TIMEOUT_MSEC * 512)
 #elif F_CPU == 48000000
   #define TX_TIMEOUT (TX_TIMEOUT_MSEC * 428)
 #elif F_CPU == 24000000
@@ -135,6 +144,13 @@ void usb_midi_flush_output(void)
 
 void static sysex_byte(uint8_t b)
 {
+	// when buffer is full, send another chunk to handler.
+	if (usb_midi_msg_sysex_len == USB_MIDI_SYSEX_MAX) {
+		if (usb_midi_handleSysEx) {
+			(*usb_midi_handleSysEx)(usb_midi_msg_sysex, usb_midi_msg_sysex_len, 0);
+			usb_midi_msg_sysex_len = 0;
+		}
+	}
 	if (usb_midi_msg_sysex_len < USB_MIDI_SYSEX_MAX) {
 		usb_midi_msg_sysex[usb_midi_msg_sysex_len++] = b;
 	}
@@ -238,6 +254,8 @@ int usb_midi_read(uint32_t channel)
 		usb_midi_msg_data1 = usb_midi_msg_sysex_len;
 		usb_midi_msg_sysex_len = 0;
 		usb_midi_msg_type = 7;				// 7 = Sys Ex
+		if (usb_midi_handleSysEx)
+			(*usb_midi_handleSysEx)(usb_midi_msg_sysex, usb_midi_msg_data1, 1);
 		return 1;
 	}
 	if (type1 == 0x0F) {

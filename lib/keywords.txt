@@ -525,6 +525,8 @@ KEY_RIGHT_GUI	LITERAL1
 # USB Mouse
 Mouse	KEYWORD3
 move	KEYWORD2
+moveTo	KEYWORD2
+screenSize	KEYWORD2
 click	KEYWORD2
 scroll	KEYWORD2
 set_buttons	KEYWORD2

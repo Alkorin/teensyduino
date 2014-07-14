@@ -23,6 +23,10 @@
 void setup()
 {
   Serial.begin(115200);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo and Due
+  }
+  Entropy.Initialize();
 
   // This routine sets up the watch dog timer with interrupt handler to maintain a
   // pool of real entropy for use in sketches.  This mechanism is relatively slow
@@ -36,6 +40,6 @@ void loop()
 {
   // When the random method is called with a single integer parameter it will return
   // a random integer that is in the range: 0 <= random_value < integer parameter
-  Serial.println(Entropy.random(256));
+  Serial.println(Entropy.random(WDT_RETURN_BYTE));
 }
 

@@ -98,26 +98,71 @@ class TWBRemulation
 public:
 	inline TWBRemulation & operator = (int val) __attribute__((always_inline)) {
 		if (val == 12 || val == ((F_CPU / 400000) - 16) / 2) { // 22, 52, 112
-			#if F_BUS == 48000000
+			I2C0_C1 = 0;
+			#if F_BUS == 60000000
+			I2C0_F = 0x1C; // 416 kHz
+			#elif F_BUS == 56000000
+			I2C0_F = 0x1C; // 389 kHz
+			#elif F_BUS == 48000000
 			I2C0_F = 0x1A; // 400 kHz
+			#elif F_BUS == 40000000
+			I2C0_F = 0x19; // 416 kHz
+			#elif F_BUS == 36000000
+			I2C0_F = 0x19; // 375 kHz
 			#elif F_BUS == 24000000
-			I2C0_F = 0x45; // 400 kHz
+			I2C0_F = 0x12; // 375 kHz
+			#elif F_BUS == 16000000
+			I2C0_F = 0x07; // 400 kHz
+			#elif F_BUS == 8000000
+			I2C0_F = 0x00; // 400 kHz
+			#elif F_BUS == 4000000
+			I2C0_F = 0x00; // 200 kHz
 			#endif
+			I2C0_C1 = I2C_C1_IICEN;
 		} else if (val == 72 || val == ((F_CPU / 100000) - 16) / 2) { // 112, 232, 472
-			#if F_BUS == 48000000
+			I2C0_C1 = 0;
+			#if F_BUS == 60000000
+			I2C0_F = 0x2C; // 104 kHz
+			#elif F_BUS == 56000000
+			I2C0_F = 0x2B; // 109 kHz
+			#elif F_BUS == 48000000
 			I2C0_F = 0x27; // 100 kHz
+			#elif F_BUS == 40000000
+			I2C0_F = 0x29; // 104 kHz
+			#elif F_BUS == 36000000
+			I2C0_F = 0x28; // 113 kHz
 			#elif F_BUS == 24000000
 			I2C0_F = 0x1F; // 100 kHz
+			#elif F_BUS == 16000000
+			I2C0_F = 0x20; // 100 kHz
+			#elif F_BUS == 8000000
+			I2C0_F = 0x14; // 100 kHz
+			#elif F_BUS == 4000000
+			I2C0_F = 0x07; // 100 kHz
+			#elif F_BUS == 2000000
+			I2C0_F = 0x00; // 100 kHz
 			#endif
+			I2C0_C1 = I2C_C1_IICEN;
 		}
 		return *this;
 	}
 	inline operator int () const __attribute__((always_inline)) {
-		uint8_t f = I2C0_F;
-		#if F_BUS == 48000000
-		if (f == 0x1A) return 12;
+		#if F_BUS == 60000000
+		if (I2C0_F == 0x1C) return 12;
+		#elif F_BUS == 48000000
+		if (I2C0_F == 0x1A) return 12;
+		#elif F_BUS == 40000000
+		if (I2C0_F == 0x19) return 12;
+		#elif F_BUS == 36000000
+		if (I2C0_F == 0x19) return 12;
 		#elif F_BUS == 24000000
-		if (f == 0x45) return 12;
+		if (I2C0_F == 0x12) return 12;
+		#elif F_BUS == 16000000
+		if (I2C0_F == 0x07) return 12;
+		#elif F_BUS == 8000000
+		if (I2C0_F == 0x00) return 12;
+		#elif F_BUS == 4000000
+		if (I2C0_F == 0x00) return 12;
 		#endif
 		return 72;
 	}

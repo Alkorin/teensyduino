@@ -6,12 +6,12 @@
    This example code is in the public domain.
 */
 
-// This line defines a "Uart" object to access the serial port
-HardwareSerial Uart = HardwareSerial();
+// set this to the hardware serial port you wish to use
+#define HWSERIAL Serial1
 
 void setup() {
 	Serial.begin(9600);
-        Uart.begin(38400);
+        HWSERIAL.begin(38400);
 }
 
 void loop() {
@@ -21,15 +21,15 @@ void loop() {
 		incomingByte = Serial.read();
 		Serial.print("USB received: ");
 		Serial.println(incomingByte, DEC);
-                Uart.print("USB received:");
-                Uart.println(incomingByte, DEC);
+                HWSERIAL.print("USB received:");
+                HWSERIAL.println(incomingByte, DEC);
 	}
-	if (Uart.available() > 0) {
-		incomingByte = Uart.read();
+	if (HWSERIAL.available() > 0) {
+		incomingByte = HWSERIAL.read();
 		Serial.print("UART received: ");
 		Serial.println(incomingByte, DEC);
-                Uart.print("UART received:");
-                Uart.println(incomingByte, DEC);
+                HWSERIAL.print("UART received:");
+                HWSERIAL.println(incomingByte, DEC);
 	}
 }
 

@@ -6,11 +6,12 @@
    This example code is in the public domain.
 */
 
+// set this to the hardware serial port you wish to use
+#define HWSERIAL Serial1
 
 unsigned long baud = 19200;
-HardwareSerial Uart = HardwareSerial();
 const int reset_pin = 4;
-const int led_pin = 11;  // 11=Teensy 2.0, 6=Teensy 1.0, 16=Benito
+const int led_pin = 11;  // 13 = Teensy 3.X, 11 = Teensy 2.0, 6 = Teensy++ 2.0
 const int led_on = HIGH;
 const int led_off = LOW;
 
@@ -21,7 +22,7 @@ void setup()
 	digitalWrite(reset_pin, HIGH);
 	pinMode(reset_pin, OUTPUT);
 	Serial.begin(baud);	// USB, communication to PC or Mac
-	Uart.begin(baud);	// UART, communication to Dorkboard
+	HWSERIAL.begin(baud);	// communication to hardware serial
 }
 
 long led_on_time=0;
@@ -33,13 +34,13 @@ void loop()
 
 	if (Serial.available()) {
 		c = Serial.read();
-		Uart.write(c);
+		HWSERIAL.write(c);
 		digitalWrite(led_pin, led_on);
 		led_on_time = millis();
 		return;
 	}
-	if (Uart.available()) {
-		c = Uart.read();
+	if (HWSERIAL.available()) {
+		c = HWSERIAL.read();
 		Serial.write(c);
 		digitalWrite(led_pin, led_on);
 		led_on_time = millis();
@@ -68,9 +69,9 @@ void loop()
 			// combined error is too large.  Simply
 			// setting the baud rate to the same as
 			// arduino's actual baud rate works.
-			Uart.begin(58824);
+			HWSERIAL.begin(58824);
 		} else {
-			Uart.begin(baud);
+			HWSERIAL.begin(baud);
 		}
 	}
 }
