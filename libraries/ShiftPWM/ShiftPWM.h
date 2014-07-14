@@ -23,12 +23,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ShiftPWM_H
 
 #include "pins_arduino_compile_time.h" // My own version of pins arduino, which does not define the arrays in program memory
-#if defined(ARDUINO) && ARDUINO >= 100
-  #include <Arduino.h>
-#else
-  #include <WProgram.h>
-#endif
-
+#include <Arduino.h>
 #include "CShiftPWM.h"
 
 
@@ -41,22 +36,37 @@ extern const bool ShiftPWM_balanceLoad;
 // If the ShiftPWM object is created in the cpp file, it is separately compiled with the library.
 // The compiler cannot treat it as constant and cannot optimize well: it will generate many memory accesses in the interrupt function.
 
+#if defined(SHIFTPWM_USE_TIMER2)
+	#if !defined(OCR2A)
+		#error "The avr you are using does not have a timer2"
+	#endif
+#elif defined(SHIFTPWM_USE_TIMER3)
+	#if !defined(OCR3A)
+		#error "The avr you are using does not have a timer3"
+	#endif
+#endif
+
+
 #ifndef SHIFTPWM_NOSPI
 	// Use SPI
-	#ifndef _useTimer1 //This is defined in Servo.h
-	CShiftPWM ShiftPWM(1,false,ShiftPWM_latchPin,MOSI,SCK);
+	#if defined(SHIFTPWM_USE_TIMER3)
+		CShiftPWM ShiftPWM(3,false,ShiftPWM_latchPin,MOSI,SCK);
+	#elif defined(SHIFTPWM_USE_TIMER2)
+		CShiftPWM ShiftPWM(2,false,ShiftPWM_latchPin,MOSI,SCK);
 	#else
-	CShiftPWM ShiftPWM(2,false,ShiftPWM_latchPin,MOSI,SCK);  // if timer1 is in use by servo, use timer 2
+		CShiftPWM ShiftPWM(1,false,ShiftPWM_latchPin,MOSI,SCK);
 	#endif
 #else
 	// Don't use SPI
 	extern const int ShiftPWM_clockPin;
 	extern const int ShiftPWM_dataPin;
-	#ifndef _useTimer1 //This is defined in Servo.h
-	CShiftPWM ShiftPWM(1,true,ShiftPWM_latchPin,ShiftPWM_dataPin,ShiftPWM_clockPin);
+	#if defined(SHIFTPWM_USE_TIMER3)
+		CShiftPWM ShiftPWM(3,true,ShiftPWM_latchPin,ShiftPWM_dataPin,ShiftPWM_clockPin);
+	#elif defined(SHIFTPWM_USE_TIMER2)
+		CShiftPWM ShiftPWM(2,true,ShiftPWM_latchPin,ShiftPWM_dataPin,ShiftPWM_clockPin);
 	#else
-	CShiftPWM ShiftPWM(2,true,ShiftPWM_latchPin,ShiftPWM_dataPin,ShiftPWM_clockPin);  // if timer1 is in use by servo, use timer 2
-	#endif	
+		CShiftPWM ShiftPWM(1,true,ShiftPWM_latchPin,ShiftPWM_dataPin,ShiftPWM_clockPin);
+	#endif
 #endif
 
 // The macro below uses 3 instructions per pin to generate the byte to transfer with SPI
@@ -64,10 +74,10 @@ extern const bool ShiftPWM_balanceLoad;
 // Compare with the counter (cp, 1 clockcycle) --> result is stored in carry
 // Use the rotate over carry right to shift the compare result into the byte. (1 clockcycle).
 #define add_one_pin_to_byte(sendbyte, counter, ledPtr) \
-{ \ 
-	unsigned char pwmval=*ledPtr; \ 
+{ \
+	unsigned char pwmval=*ledPtr; \
 	asm volatile ("cp %0, %1" : /* No outputs */ : "r" (counter), "r" (pwmval): ); \
-	asm volatile ("ror %0" : "+r" (sendbyte) : "r" (sendbyte) : ); 			\
+	asm volatile ("ror %0" : "+r" (sendbyte) : "r" (sendbyte) : ); 	\
 }
 
 // The inline function below uses normal output pins to send one bit to the SPI port.
@@ -76,17 +86,32 @@ extern const bool ShiftPWM_balanceLoad;
 static inline void pwm_output_one_pin(volatile uint8_t * const clockPort, volatile uint8_t * const dataPort,\
                                   const uint8_t clockBit, const uint8_t dataBit, \
                                   unsigned char counter, unsigned char * ledPtr){
-    bitClear(*clockPort, clockBit); 
+#ifndef SHIFTPWM_USE_DIGITALWRITEFAST
+    bitClear(*clockPort, clockBit);
     if(ShiftPWM_invertOutputs){
-      bitWrite(*dataPort, dataBit, *(ledPtr)<=counter ); 
+      bitWrite(*dataPort, dataBit, *(ledPtr)<=counter );
     }
-    else{ 
-      bitWrite(*dataPort, dataBit, *(ledPtr)>counter ); 
-    } 
-    bitSet(*clockPort, clockBit); 
+    else{
+      bitWrite(*dataPort, dataBit, *(ledPtr)>counter );
+    }
+    bitSet(*clockPort, clockBit);
+#else
+    digitalWriteFast(clockBit, LOW);
+    if(ShiftPWM_invertOutputs){
+      digitalWriteFast(dataBit, *(ledPtr)<=counter );
+    }
+    else{
+      digitalWriteFast(dataBit, *(ledPtr)>counter );
+    }
+    digitalWriteFast(clockBit, HIGH);
+#endif
 }
 
+#if defined(__AVR__)
 static inline void ShiftPWM_handleInterrupt(void){
+#else
+void ShiftPWM_handleInterrupt(void){
+#endif
 	sei(); //enable interrupt nesting to prevent disturbing other interrupt functions (servo's for example).
 
 	// Look up which bit of which output register corresponds to the pin.
@@ -113,7 +138,12 @@ static inline void ShiftPWM_handleInterrupt(void){
 	unsigned char * ledPtr=&ShiftPWM.m_PWMValues[ShiftPWM.m_amountOfOutputs];
 
 	// Write shift register latch clock low 
+	#ifndef SHIFTPWM_USE_DIGITALWRITEFAST
 	bitClear(*latchPort, latchBit);
+	#else
+	digitalWriteFast(latchBit, LOW);
+	#endif
+
 	unsigned char counter = ShiftPWM.m_counter;
 	
 	#ifndef SHIFTPWM_NOSPI
@@ -157,29 +187,40 @@ static inline void ShiftPWM_handleInterrupt(void){
 		pwm_output_one_pin(clockPort, dataPort, clockBit, dataBit, counter, --ledPtr);
 	}
 	#endif
-	
-	// Write shift register latch clock high 
+
+	// Write shift register latch clock high
+	#ifndef SHIFTPWM_USE_DIGITALWRITEFAST
 	bitSet(*latchPort, latchBit);
+	#else
+	digitalWriteFast(latchBit, HIGH);
+	#endif
 
 	if(ShiftPWM.m_counter<ShiftPWM.m_maxBrightness){
 		ShiftPWM.m_counter++; // Increase the counter
 	}
 	else{
 		ShiftPWM.m_counter=0; // Reset counter if it maximum brightness has been reached
-	} 	
-} 
+	}
+}
 
 // See table  11-1 for the interrupt vectors */
-#ifndef _useTimer1 
-//Install the Interrupt Service Routine (ISR) for Timer1 compare and match A.
-ISR(TIMER1_COMPA_vect) {
-	ShiftPWM_handleInterrupt();
-}
+#if defined(__AVR__)
+#if defined(SHIFTPWM_USE_TIMER3)
+	//Install the Interrupt Service Routine (ISR) for Timer3 compare and match A.
+	ISR(TIMER3_COMPA_vect) {
+		ShiftPWM_handleInterrupt();
+	}
+#elif defined(SHIFTPWM_USE_TIMER2)
+	//Install the Interrupt Service Routine (ISR) for Timer1 compare and match A.
+	ISR(TIMER2_COMPA_vect) {
+		ShiftPWM_handleInterrupt();
+	}
 #else
-//Install the Interrupt Service Routine (ISR) for Timer2 compare and match A.
-ISR(TIMER2_COMPA_vect) {
-	ShiftPWM_handleInterrupt();
-}
+	//Install the Interrupt Service Routine (ISR) for Timer1 compare and match A.
+	ISR(TIMER1_COMPA_vect) {
+		ShiftPWM_handleInterrupt();
+	}
+#endif
 #endif
 
 // #endif for include once.

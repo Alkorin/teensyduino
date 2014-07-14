@@ -24,16 +24,16 @@
     #define F(string_literal) string_literal
 #endif
 
-// TFT display and SD card will share the hardware SPI interface.
-// Hardware SPI pins are specific to the Arduino board type and
-// cannot be remapped to alternate pins.  For Arduino Uno,
-// Duemilanove, etc., pin 11 = MOSI, pin 12 = MISO, pin 13 = SCK.
-#define SD_CS    4  // Chip select line for SD card
-#define TFT_CS  10  // Chip select line for TFT display
-#define TFT_DC   8  // Data/command line for TFT
-#define TFT_RST  0  // Reset line for TFT (or connect to +5V)
+// This Teensy3 native optimized version requires specific pins
+//
+#define sclk 13  // SCLK can also use pin 14
+#define mosi 11  // MOSI can also use pin 7
+#define cs   10  // CS & DC can use pins 2, 6, 9, 10, 15, 20, 21, 22, 23
+#define dc   9   //  but certain pairs must NOT be used: 2+10, 6+9, 20+23, 21+22
+#define rst  8   // RST can use any pin
+#define sdcs 4   // CS for SD card, can use any pin
 
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+Adafruit_ST7735 tft = Adafruit_ST7735(cs, dc, mosi, sclk, rst);
 
 #define BUTTON_NONE 0
 #define BUTTON_DOWN 1
@@ -43,7 +43,7 @@ Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 #define BUTTON_LEFT 5
 
 void setup(void) {
-  pinMode(SD_CS, INPUT_PULLUP);  // keep SD CS high when not using SD card
+  pinMode(cs, INPUT_PULLUP);  // keep SD CS high when not using SD card
   Serial.begin(9600);
 
   // Our supplier changed the 1.8" display slightly after Jan 10, 2012
@@ -118,7 +118,7 @@ void loop() {
     buttonhistory |= 8;
     delay(2000);
     Serial.print("Initializing SD card...");
-    if (!SD.begin(SD_CS)) {
+    if (!SD.begin(sdcs)) {
       Serial.println("failed!");
       return;
     }

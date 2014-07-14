@@ -28,7 +28,7 @@
  * SOFTWARE.
  */
 
-#include "mk20dx128.h"
+#include "kinetis.h"
 #include "core_pins.h"
 #include "HardwareSerial.h"
 
@@ -169,6 +169,16 @@ void serial3_write(const void *buf, unsigned int count)
 void serial3_flush(void)
 {
 	while (transmitting) yield(); // wait
+}
+
+int serial3_write_buffer_free(void)
+{
+	uint32_t head, tail;
+
+	head = tx_buffer_head;
+	tail = tx_buffer_tail;
+	if (head >= tail) return TX_BUFFER_SIZE - 1 - head + tail;
+	return tail - head - 1;
 }
 
 int serial3_available(void)

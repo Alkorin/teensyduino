@@ -6,7 +6,7 @@
 
 (!version  "4.7.2")
 
-(!srcdir  "/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc")
+(!srcdir  "/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc")
 
 (!languages 9 ada cp fortran go java lto objc objcp c)
 
@@ -8096,7 +8096,7 @@ nil )
 (!srcfileloc  "gimple.h" 407)
 nil )
 (!pair  "u"
-(!type union 348 nil  gc_used "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/gimple.h:410"
+(!type union 348 nil  gc_used "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/gimple.h:410"
 (!srcfileloc  "gimple.h" 413)
 
 (!fields 2 
@@ -8367,7 +8367,7 @@ nil )
 )
 )
 (!pair  "loc"
-(!type union 361 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/tree.h:2011"
+(!type union 361 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/tree.h:2011"
 (!srcfileloc  "tree.h" 2011)
 
 (!fields 2 
@@ -15701,7 +15701,7 @@ nil )
 
 (!fields 11 
 (!pair  "u"
-(!type union 613 nil  gc_used "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/c-decl.c:187"
+(!type union 613 nil  gc_used "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/c-decl.c:187"
 (!srcfileloc  "c-decl.c" 190)
 
 (!fields 2 
@@ -17206,7 +17206,7 @@ nil 320 nil )
 
 (!type already_seen 670)
 
-(!type struct 675 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/c-parser.c:5589"nil 
+(!type struct 675 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/c-parser.c:5589"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -17840,7 +17840,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 733 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/java/expr.c:2059"nil 
+(!type struct 733 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/java/expr.c:2059"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -18022,11 +18022,11 @@ nil )
 nil ))
 nil 4 nil )
 
-(!type struct 746 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/fortran/trans.h:334"nil 
+(!type struct 746 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/fortran/trans.h:334"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 747 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/fortran/trans.h:322"nil 
+(!type struct 747 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/fortran/trans.h:322"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -18050,7 +18050,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 753 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/fortran/trans.h:33"nil 
+(!type struct 753 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/fortran/trans.h:33"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -18352,7 +18352,7 @@ nil 0 nil )
 nil )
 (!pair  "vec"
 (!type array 775 nil  gc_unused "1" 
-(!type struct 776 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/c-family/c-pragma.c:1175"nil 
+(!type struct 776 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/c-family/c-pragma.c:1175"nil 
 (!fields 0 )
 nil 0 nil )
 )
@@ -20538,7 +20538,7 @@ nil 1 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 956 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/ada/gcc-interface/decl.c:193"nil 
+(!type struct 956 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/ada/gcc-interface/decl.c:193"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23427,7 +23427,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1207 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:24444"nil 
+(!type struct 1207 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:24444"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23435,15 +23435,15 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1209 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:19094"nil 
+(!type struct 1209 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:19094"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1210 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:2071"nil 
+(!type struct 1210 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:2071"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1211 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:1099"nil 
+(!type struct 1211 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.c:1099"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23727,7 +23727,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type union 1257 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/tree-eh.c:44"nil 
+(!type union 1257 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/tree-eh.c:44"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23743,7 +23743,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1261 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/tree-flow.h:627"nil 
+(!type struct 1261 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/tree-flow.h:627"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23803,7 +23803,7 @@ nil 511 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1269 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/tree-flow.h:315"nil 
+(!type struct 1269 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/tree-flow.h:315"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23815,7 +23815,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1272 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/tree-flow.h:106"nil 
+(!type struct 1272 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/tree-flow.h:106"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -23987,7 +23987,7 @@ nil 0 nil )
 
 (!type already_seen 335)
 
-(!type struct 1288 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/gimple.h:263"nil 
+(!type struct 1288 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/gimple.h:263"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -24098,11 +24098,11 @@ nil 511 nil )
 
 (!type already_seen 1298)
 
-(!type struct 1300 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/varasm.c:4724"nil 
+(!type struct 1300 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/varasm.c:4724"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1301 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/varasm.c:4473"nil 
+(!type struct 1301 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/varasm.c:4473"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -24235,7 +24235,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type union 1318 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/mcf.c:351"nil 
+(!type union 1318 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/mcf.c:351"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -25566,7 +25566,7 @@ nil 0 nil )
 nil )
 (!pair  "vec"
 (!type array 1458 nil  gc_unused "1" 
-(!type struct 1459 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/dwarf2cfi.c:203"nil 
+(!type struct 1459 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/dwarf2cfi.c:203"nil 
 (!fields 0 )
 nil 0 nil )
 )
@@ -25617,7 +25617,7 @@ nil )
 (!type pointer 1464 nil  gc_unused
 (!type struct 1465 
 (!type already_seen 1464)
- gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/dwarf2cfi.c:102"nil 
+ gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/dwarf2cfi.c:102"nil 
 (!fields 0 )
 nil 0 nil )
 )
@@ -25899,7 +25899,7 @@ nil 511 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1487 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/matrix-reorg.c:1382"nil 
+(!type struct 1487 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/matrix-reorg.c:1382"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -26419,11 +26419,11 @@ nil 511 nil )
 
 (!type already_seen 1100)
 
-(!type struct 1550 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/cgraph.h:309"nil 
+(!type struct 1550 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/cgraph.h:309"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1551 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/cgraph.h:302"nil 
+(!type struct 1551 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/cgraph.h:302"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -26734,7 +26734,7 @@ nil 511 nil )
 
 (!type already_seen 1096)
 
-(!type struct 1579 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/basic-block.h:607"nil 
+(!type struct 1579 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/basic-block.h:607"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -26822,7 +26822,7 @@ nil 0 nil )
 
 (!type already_seen 1041)
 
-(!type struct 1589 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/cfgloop.h:523"nil 
+(!type struct 1589 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/cfgloop.h:523"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -27829,7 +27829,7 @@ nil 511 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1648 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/tree.h:5105"nil 
+(!type struct 1648 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/tree.h:5105"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28440,7 +28440,7 @@ nil 511 nil )
 
 (!type already_seen 281)
 
-(!type struct 1675 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/rtl.h:118"nil 
+(!type struct 1675 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/rtl.h:118"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28498,7 +28498,7 @@ nil ))
 )
 511 nil )
 
-(!type struct 1681 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/bitmap.h:204"nil 
+(!type struct 1681 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/bitmap.h:204"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28516,7 +28516,7 @@ nil 0 nil )
 
 (!type already_seen 60)
 
-(!type struct 1682 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.h:1453"nil 
+(!type struct 1682 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/config/arm/arm.h:1453"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28897,11 +28897,11 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1721 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/../libcpp/include/cpplib.h:972"nil 
+(!type struct 1721 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/../libcpp/include/cpplib.h:972"nil 
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1722 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/../libcpp/include/cpplib.h:961"nil 
+(!type struct 1722 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/../libcpp/include/cpplib.h:961"nil 
 (!fields 0 )
 nil 0 nil )
 
@@ -28955,7 +28955,7 @@ nil 0 nil )
 (!fields 0 )
 nil 0 nil )
 
-(!type struct 1731 nil  gc_unused "anonymous:/home/paul/teensy/arm64/workdir/gcc-4.7-2012.09/gcc/../libcpp/include/line-map.h:588"nil 
+(!type struct 1731 nil  gc_unused "anonymous:/home/paul/teensy/arm_linux64/workdir/gcc-4.7-2012.09/gcc/../libcpp/include/line-map.h:588"nil 
 (!fields 0 )
 nil 0 nil )
 

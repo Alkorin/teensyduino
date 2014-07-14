@@ -28,7 +28,7 @@
  * SOFTWARE.
  */
 
-#include "mk20dx128.h"
+#include "kinetis.h"
 
 
 extern unsigned long _stext;
@@ -164,11 +164,15 @@ void portd_isr(void)		__attribute__ ((weak, alias("unused_isr")));
 void porte_isr(void)		__attribute__ ((weak, alias("unused_isr")));
 void software_isr(void)		__attribute__ ((weak, alias("unused_isr")));
 
+#if defined(__MK20DX128__)
+__attribute__ ((section(".dmabuffers"), used, aligned(256)))
+#else
+__attribute__ ((section(".dmabuffers"), used, aligned(512)))
+#endif
+void (* _VectorsRam[NVIC_NUM_INTERRUPTS+16])(void);
 
-// TODO: create AVR-stype ISR() macro, with default linkage to undefined handler
-//
 __attribute__ ((section(".vectors"), used))
-void (* const gVectors[])(void) =
+void (* const _VectorsFlash[NVIC_NUM_INTERRUPTS+16])(void) =
 {
 	(void (*)(void))((unsigned long)&_estack),	//  0 ARM: Initial Stack Pointer
 	ResetHandler,					//  1 ARM: Initial Program Counter
@@ -401,10 +405,11 @@ void ResetHandler(void)
 	while (dest < &_edata) *dest++ = *src++;
 	dest = &_sbss;
 	while (dest < &_ebss) *dest++ = 0;
-	SCB_VTOR = 0;	// use vector table in flash
 
 	// default all interrupts to medium priority level
+	for (i=0; i < NVIC_NUM_INTERRUPTS + 16; i++) _VectorsRam[i] = _VectorsFlash[i];
 	for (i=0; i < NVIC_NUM_INTERRUPTS; i++) NVIC_SET_PRIORITY(i, 128);
+	SCB_VTOR = (uint32_t)_VectorsRam;	// use vector table in RAM
 
 	// hardware always starts in FEI mode
 	//  C1[CLKS] bits are written to 00

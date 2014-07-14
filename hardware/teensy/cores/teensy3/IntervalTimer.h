@@ -21,8 +21,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 #ifndef __INTERVALTIMER_H__
 #define __INTERVALTIMER_H__
 
-#include <stdint.h>
-#include "mk20dx128.h"
+#include "kinetis.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,10 +46,11 @@ class IntervalTimer {
     reg PIT_LDVAL;
     reg PIT_TCTRL;
     uint8_t IRQ_PIT_CH;
+    uint8_t nvic_priority;
     ISR myISR;
     bool beginCycles(ISR newISR, uint32_t cycles);
   public:
-    IntervalTimer() { status = TIMER_OFF; }
+    IntervalTimer() { status = TIMER_OFF; nvic_priority = 128; }
     ~IntervalTimer() { end(); }
     bool begin(ISR newISR, unsigned int newPeriod) {
 	if (newPeriod == 0 || newPeriod > MAX_PERIOD) return false;
@@ -77,6 +77,10 @@ class IntervalTimer {
 	return begin(newISR, (float)newPeriod);
     }
     void end();
+    void priority(uint8_t n) {
+	nvic_priority = n;
+	if (PIT_enabled) NVIC_SET_PRIORITY(IRQ_PIT_CH, n);
+    }
     static ISR PIT_ISR[NUM_PIT];
 };
 

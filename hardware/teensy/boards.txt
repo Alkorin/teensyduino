@@ -2,54 +2,6 @@ menu.usb=USB Type
 menu.speed=CPU Speed
 menu.keys=Keyboard Layout
 
-
-
-
-
-
-
-menu.usb=USB Type
-menu.speed=CPU Speed
-menu.keys=Keyboard Layout
-
-
-
-
-
-
-
-menu.usb=USB Type
-menu.speed=CPU Speed
-menu.keys=Keyboard Layout
-
-
-
-
-
-
-
-menu.usb=USB Type
-menu.speed=CPU Speed
-menu.keys=Keyboard Layout
-
-
-
-
-
-
-
-menu.usb=USB Type
-menu.speed=CPU Speed
-menu.keys=Keyboard Layout
-
-
-
-
-
-menu.usb=USB Type
-menu.speed=CPU Speed
-menu.keys=Keyboard Layout
-
 teensy31.name=Teensy 3.1
 teensy31.upload.protocol=halfkay
 teensy31.upload.maximum_size=262144
@@ -65,7 +17,7 @@ teensy31.build.cpu=cortex-m4
 teensy31.build.option1=-mthumb
 teensy31.build.option2=-nostdlib
 teensy31.build.option3=-D__MK20DX256__
-teensy31.build.option4=-DTEENSYDUINO=118
+teensy31.build.option4=-DTEENSYDUINO=120
 teensy31.build.cppoption1=-fno-rtti
 teensy31.build.linkoption1=-mthumb
 teensy31.build.additionalobject1=-larm_cortexM4l_math
@@ -78,14 +30,12 @@ teensy31.build.command.objcopy=arm-none-eabi-objcopy
 teensy31.build.command.objdump=arm-none-eabi-objdump
 teensy31.build.command.size=arm-none-eabi-size
 teensy31.build.core=teensy3
-teensy31.build.noarchive=true
 teensy31.build.elide_constructors=true
 teensy31.build.gnu0x=true
 teensy31.build.dependency=true
 teensy31.build.time_t=true
 #teensy31.build.linker_relaxation=true
 teensy31.build.post_compile_script=teensy_post_compile
-#teensy31.build.serial_number=true
 teensy31.menu.usb.serial.name=Serial
 teensy31.menu.usb.serial.build.define0=-DUSB_SERIAL
 teensy31.menu.usb.hid.name=Keyboard + Mouse + Joystick
@@ -116,10 +66,10 @@ teensy31.menu.speed.96.name=96 MHz (overclock)
 teensy31.menu.speed.72.name=72 MHz
 teensy31.menu.speed.48.name=48 MHz
 teensy31.menu.speed.24.name=24 MHz
-teensy31.menu.speed.16.name=16 MHz (No USB)
-teensy31.menu.speed.8.name=8 MHz (No USB)
-teensy31.menu.speed.4.name=4 MHz (No USB)
-teensy31.menu.speed.2.name=2 MHz (No USB)
+teensy31.menu.speed.16nousb.name=16 MHz (No USB)
+teensy31.menu.speed.8nousb.name=8 MHz (No USB)
+teensy31.menu.speed.4nousb.name=4 MHz (No USB)
+teensy31.menu.speed.2nousb.name=2 MHz (No USB)
 teensy31.menu.speed.168.build.f_cpu=168000000
 teensy31.menu.speed.144.build.f_cpu=144000000
 teensy31.menu.speed.120.build.f_cpu=120000000
@@ -127,10 +77,10 @@ teensy31.menu.speed.96.build.f_cpu=96000000
 teensy31.menu.speed.72.build.f_cpu=72000000
 teensy31.menu.speed.48.build.f_cpu=48000000
 teensy31.menu.speed.24.build.f_cpu=24000000
-teensy31.menu.speed.16.build.f_cpu=16000000
-teensy31.menu.speed.8.build.f_cpu=8000000
-teensy31.menu.speed.4.build.f_cpu=4000000
-teensy31.menu.speed.2.build.f_cpu=2000000
+teensy31.menu.speed.16nousb.build.f_cpu=16000000
+teensy31.menu.speed.8nousb.build.f_cpu=8000000
+teensy31.menu.speed.4nousb.build.f_cpu=4000000
+teensy31.menu.speed.2nousb.build.f_cpu=2000000
 teensy31.menu.keys.en-us.name=US English
 teensy31.menu.keys.en-us.build.define1=-DLAYOUT_US_ENGLISH
 teensy31.menu.keys.fr-ca.name=Canadian French
@@ -193,7 +143,7 @@ teensy3.build.cpu=cortex-m4
 teensy3.build.option1=-mthumb
 teensy3.build.option2=-nostdlib
 teensy3.build.option3=-D__MK20DX128__
-teensy3.build.option4=-DTEENSYDUINO=118
+teensy3.build.option4=-DTEENSYDUINO=120
 teensy3.build.cppoption1=-fno-rtti
 teensy3.build.linkoption1=-mthumb
 teensy3.build.additionalobject1=-larm_cortexM4l_math
@@ -206,14 +156,12 @@ teensy3.build.command.objcopy=arm-none-eabi-objcopy
 teensy3.build.command.objdump=arm-none-eabi-objdump
 teensy3.build.command.size=arm-none-eabi-size
 teensy3.build.core=teensy3
-teensy3.build.noarchive=true
 teensy3.build.elide_constructors=true
 teensy3.build.gnu0x=true
 teensy3.build.dependency=true
 teensy3.build.time_t=true
 #teensy3.build.linker_relaxation=true
 teensy3.build.post_compile_script=teensy_post_compile
-#teensy3.build.serial_number=true
 teensy3.menu.usb.serial.name=Serial
 teensy3.menu.usb.serial.build.define0=-DUSB_SERIAL
 teensy3.menu.usb.hid.name=Keyboard + Mouse + Joystick
@@ -301,7 +249,7 @@ teensy2.serial.restart_cmd=true
 teensy2.serial.safe_baud_rates_only=true
 teensy2.upload.avrdude_wrapper=teensy_reboot
 teensy2.build.mcu=atmega32u4
-teensy2.build.option1=-DTEENSYDUINO=118
+teensy2.build.option1=-DTEENSYDUINO=120
 teensy2.build.core=teensy
 teensy2.build.elide_constructors=true
 teensy2.build.cpp0x=true
@@ -398,7 +346,7 @@ teensypp2.serial.restart_cmd=true
 teensypp2.serial.safe_baud_rates_only=true
 teensypp2.upload.avrdude_wrapper=teensy_reboot
 teensypp2.build.mcu=at90usb1286
-teensypp2.build.option1=-DTEENSYDUINO=118
+teensypp2.build.option1=-DTEENSYDUINO=120
 teensypp2.build.core=teensy
 teensypp2.build.elide_constructors=true
 teensypp2.build.cpp0x=true

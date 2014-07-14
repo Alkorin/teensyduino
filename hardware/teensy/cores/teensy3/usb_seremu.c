@@ -30,7 +30,6 @@
 
 #if F_CPU >= 20000000
 
-//#include "mk20dx128.h"
 #include "usb_dev.h"
 #include "usb_seremu.h"
 #include "core_pins.h" // for yield()
@@ -222,6 +221,24 @@ int usb_seremu_write(const void *buffer, uint32_t size)
 	tx_noautoflush = 0;
 	return 0;
 #endif
+}
+
+int usb_seremu_write_buffer_free(void)
+{
+	uint32_t len;
+
+	tx_noautoflush = 1;
+	if (!tx_packet) {
+		if (!usb_configuration ||
+		  usb_tx_packet_count(SEREMU_TX_ENDPOINT) >= TX_PACKET_LIMIT ||
+		  (tx_packet = usb_malloc()) == NULL) {
+			tx_noautoflush = 0;
+			return 0;
+		}
+	}
+	len = SEREMU_TX_SIZE - tx_packet->index;
+	tx_noautoflush = 0;
+	return len;
 }
 
 void usb_seremu_flush_output(void)

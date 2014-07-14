@@ -31,8 +31,9 @@
 #if F_CPU >= 20000000
 
 #include "usb_desc.h"
+#ifdef NUM_ENDPOINTS
 #include "usb_names.h"
-#include "mk20dx128.h"
+#include "kinetis.h"
 #include "avr_functions.h"
 
 // USB Descriptors are binary data which the USB host reads to
@@ -891,5 +892,5 @@ const uint8_t usb_endpoint_config_table[NUM_ENDPOINTS] =
 };
 
 
-
+#endif // NUM_ENDPOINTS
 #endif // F_CPU >= 20 MHz

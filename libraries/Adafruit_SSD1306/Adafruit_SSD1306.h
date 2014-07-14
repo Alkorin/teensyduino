@@ -22,6 +22,15 @@ All text above, and the splash screen must be included in any redistribution
  #include "WProgram.h"
 #endif
 
+#ifdef __SAM3X8E__
+ typedef volatile RwReg PortReg;
+ typedef uint32_t PortMask;
+#else
+  typedef volatile uint8_t PortReg;
+  typedef uint8_t PortMask;
+#endif
+
+#include <SPI.h>
 #include <Adafruit_GFX.h>
 
 #define BLACK 0
@@ -29,7 +38,7 @@ All text above, and the splash screen must be included in any redistribution
 
 #define SSD1306_I2C_ADDRESS   0x3C	// 011110+SA0+RW - 0x3C or 0x3D
 // Address for 128x32 is 0x3C
-// Address for 128x32 is 0x3D (default) or 0x3C (if SA0 is grounded)
+// Address for 128x64 is 0x3D (default) or 0x3C (if SA0 is grounded)
 
 /*=========================================================================
     SSD1306 Displays
@@ -41,9 +50,6 @@ All text above, and the splash screen must be included in any redistribution
     SSD1306_128_64  128x64 pixel display
 
     SSD1306_128_32  128x32 pixel display
-
-    You also need to set the LCDWIDTH and LCDHEIGHT defines to an 
-    appropriate size
 
     -----------------------------------------------------------------------*/
 //   #define SSD1306_128_64
@@ -90,6 +96,8 @@ All text above, and the splash screen must be included in any redistribution
 #define SSD1306_SETSTARTLINE 0x40
 
 #define SSD1306_MEMORYMODE 0x20
+#define SSD1306_COLUMNADDR 0x21
+#define SSD1306_PAGEADDR   0x22
 
 #define SSD1306_COMSCANINC 0xC0
 #define SSD1306_COMSCANDEC 0xC8
@@ -113,6 +121,7 @@ All text above, and the splash screen must be included in any redistribution
 class Adafruit_SSD1306 : public Adafruit_GFX {
  public:
   Adafruit_SSD1306(int8_t SID, int8_t SCLK, int8_t DC, int8_t RST, int8_t CS);
+  Adafruit_SSD1306(int8_t DC, int8_t RST, int8_t CS);
   Adafruit_SSD1306(int8_t RST);
 
   void begin(uint8_t switchvcc = SSD1306_SWITCHCAPVCC, uint8_t i2caddr = SSD1306_I2C_ADDRESS);
@@ -130,13 +139,22 @@ class Adafruit_SSD1306 : public Adafruit_GFX {
   void startscrolldiagleft(uint8_t start, uint8_t stop);
   void stopscroll(void);
 
+  void dim(uint8_t contrast);
+
   void drawPixel(int16_t x, int16_t y, uint16_t color);
 
- private:
-  int8_t _i2caddr, sid, sclk, dc, rst, cs;
-  void fastSPIwrite(uint8_t c);
-  void slowSPIwrite(uint8_t c);
+  virtual void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
+  virtual void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
 
-  volatile uint8_t *mosiport, *clkport, *csport, *dcport;
-  uint8_t mosipinmask, clkpinmask, cspinmask, dcpinmask;
+ private:
+  int8_t _i2caddr, _vccstate, sid, sclk, dc, rst, cs;
+  void fastSPIwrite(uint8_t c);
+
+  boolean hwSPI;
+  PortReg *mosiport, *clkport, *csport, *dcport;
+  PortMask mosipinmask, clkpinmask, cspinmask, dcpinmask;
+
+  inline void drawFastVLineInternal(int16_t x, int16_t y, int16_t h, uint16_t color) __attribute__((always_inline));
+  inline void drawFastHLineInternal(int16_t x, int16_t y, int16_t w, uint16_t color) __attribute__((always_inline));
+
 };

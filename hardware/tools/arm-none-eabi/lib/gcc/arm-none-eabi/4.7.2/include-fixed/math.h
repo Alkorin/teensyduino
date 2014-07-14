@@ -2,7 +2,7 @@
 
     It has been auto-edited by fixincludes from:
 
-	"/home/paul/teensy/arm64/arm-none-eabi/arm-none-eabi/usr/include/math.h"
+	"/home/paul/teensy/arm_linux64/arm-none-eabi/arm-none-eabi/usr/include/math.h"
 
     This had to be done to correct non-standard usages in the
     original, manufacturer supplied header file.  */

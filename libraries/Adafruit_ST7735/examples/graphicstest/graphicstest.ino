@@ -16,24 +16,14 @@
   MIT license, all text above must be included in any redistribution
  ****************************************************/
 
-// For the breakout, you can use any (4 or) 5 pins
-//#define sclk 4
-//#define mosi 5
-//#define cs   6
-//#define dc   7
-//#define rst  8  // you can also connect this to the Arduino reset
-
-//Use these pins for the shield!
-#define sclk 13
-#define mosi 11
-#define cs   10
-#define dc   8
-#define rst  0  // you can also connect this to the Arduino reset
+// This Teensy3 native optimized version requires specific pins
+//
+#define sclk 13  // SCLK can also use pin 14
+#define mosi 11  // MOSI can also use pin 7
+#define cs   10  // CS & DC can use pins 2, 6, 9, 10, 15, 20, 21, 22, 23
+#define dc   9   //  but certain pairs must NOT be used: 2+10, 6+9, 20+23, 21+22
+#define rst  8   // RST can use any pin
 #define sdcs 4   // CS for SD card, can use any pin
-
-// Alternate connections (allows fast native mode on Teensy3)
-//#define dc   9
-//#define rst  8
 
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library
